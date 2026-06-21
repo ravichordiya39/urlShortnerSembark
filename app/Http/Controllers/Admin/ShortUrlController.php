@@ -195,7 +195,7 @@ public function store(Request $request)
         'company_id' => $request->company_id
     ]);
 
-    return redirect()->route('admin.shortUrls.index')->with('success', 'Company created successfully.');
+    return redirect()->route('admin.shortUrls.index')->with('success', 'ShortUrl created successfully.');
 }
 
 
