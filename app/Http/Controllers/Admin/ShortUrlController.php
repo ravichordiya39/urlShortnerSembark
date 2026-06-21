@@ -215,6 +215,8 @@ public function store(Request $request)
         return view('admin.shorturls.edit', compact('shorturl','companies'));
     }
 
+    
+
     public function update(Request $request, $id)
     {
         $request->validate([
