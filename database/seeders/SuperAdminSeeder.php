@@ -21,16 +21,14 @@ class SuperAdminSeeder extends Seeder
                 name,
                 email,
                 password,
-                status,
-                created_at,
+                 created_at,
                 updated_at
             )
-            VALUES (?, ?, ?, ?, NOW(), NOW())
+            VALUES (?, ?,  ?, NOW(), NOW())
         ", [
             'SuperAdmin',
             'super@admin.com',
-            Hash::make('12345678'),
-            'Y'
+            Hash::make('12345678')
         ]);
 
 
@@ -38,14 +36,14 @@ class SuperAdminSeeder extends Seeder
 
 
         // Get SuperAdmin Role
-        $roleId = DB::table('roles')
+        $roleId = DB::table('tbl_roles')
             ->where('title','Superadmin')
             ->value('id');
 
 
         // Assign Role
         DB::insert("
-            INSERT INTO role_user
+            INSERT INTO tbl_role_user
             (
                 user_id,
                 role_id,
@@ -58,5 +56,27 @@ class SuperAdminSeeder extends Seeder
             $roleId
         ]);
 
+        $permissions = DB::table('tbl_permissions')
+            ->pluck('id');
+
+        $createShortUrlPermission = DB::table('tbl_permissions')
+            ->where('title','short_url_add')
+            ->value('id');
+
+        $insertData = [];
+
+        foreach ($permissions as $permissionId) {
+            if($permissionId != $createShortUrlPermission){
+
+                $insertData[] = [
+                    'permission_id' => $permissionId,
+                    'role_id' => $roleId
+                ];
+            }
+        }
+
+        if (!empty($insertData)) {
+            DB::table('tbl_permission_role')->insert($insertData);
+        }
     }
 }

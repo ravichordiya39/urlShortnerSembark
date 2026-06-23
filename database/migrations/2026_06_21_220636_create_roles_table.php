@@ -30,6 +30,15 @@ return new class extends Migration
                 ->nullable();
 
         });
+
+         // Insert default permissions
+        DB::table('tbl_roles')->insert([
+
+            [
+                'title' => 'Superadmin',
+            ]
+
+        ]);
     }
 
 

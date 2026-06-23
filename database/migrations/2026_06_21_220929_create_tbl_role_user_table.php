@@ -10,18 +10,17 @@ return new class extends Migration
     {
         Schema::create('tbl_role_user', function (Blueprint $table) {
 
-            $table->unsignedInteger('user_id');
+            $table->id();
 
+            // Match users.id created by $table->id()
+            $table->unsignedBigInteger('user_id');
+
+            // Match tbl_roles.id created by $table->id()
             $table->unsignedInteger('role_id');
 
-
-            // Indexes
-            $table->index('user_id', 'FK_tbl_role_user_users');
-
-            $table->index('role_id', 'FK_tbl_role_user_tbl_roles');
+            $table->timestamps();
 
 
-            // Foreign Keys
             $table->foreign('user_id', 'FK_tbl_role_user_users')
                 ->references('id')
                 ->on('users')
@@ -29,7 +28,7 @@ return new class extends Migration
                 ->onUpdate('restrict');
 
 
-            $table->foreign('role_id', 'FK_tbl_role_user_tbl_roles')
+            $table->foreign('role_id', 'FK_tbl_role_user_roles')
                 ->references('id')
                 ->on('tbl_roles')
                 ->onDelete('restrict')
