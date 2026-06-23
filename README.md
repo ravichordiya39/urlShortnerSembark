@@ -86,7 +86,7 @@ php artisan migrate
 Run seeders:
 
 ``` bash
-php artisan db:seed
+php artisan db:seed SuperAdminSeeder
 ```
 
 Super Admin:
