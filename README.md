@@ -166,3 +166,9 @@ php artisan optimize:clear
     routes
      └── web.php
 
+##after completing all the steps first of al go to the roles and create two new roles 
+
+1. Admin
+2. Member
+
+## then assign the permission which is needed and then create the users by assigning role 
